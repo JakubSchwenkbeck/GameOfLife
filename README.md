@@ -1,2 +1,7 @@
 # GameOfLife
-Implementation of the famous John Conway Game of Life in Haskell 
+This is a small implementation of the famous 'Game of Life' by John Conway using the Haskell language.
+Using pure function programming, this little function creates a GoL simulation in the command line:
+
+
+![Eingabeaufforderung 2024-07-31 22-06-42 (online-video-cutter com)](https://github.com/user-attachments/assets/b38ef41a-5207-4780-b53f-03478bef1ca8)
+
