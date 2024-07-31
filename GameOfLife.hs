@@ -48,7 +48,7 @@ gameOfLife state iteration = do
     prettyPrint state
     let new_state = transition state
     sleep
-    printf "\ESC[%dA" $ length state
+    putStrLn  "----------------" -- "\ESC[%dA" $ length state
     if iteration < maxIterations
         then gameOfLife new_state (iteration + 1)
         else putStrLn "Simulation finished."
