@@ -2,6 +2,7 @@ import Control.Concurrent
 import Text.Printf
 
 -- Define an initial state (e.g., a glider)
+-- Feel free to experiment with different Starting conditions and watch the course of the game:) 
 initialState :: [[Int]]
 initialState =
     [ [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -20,15 +21,17 @@ initialState =
 
 -- Print the state
 prettyPrint :: [[Int]] -> IO ()
-prettyPrint state = mapM_ printRow state
+prettyPrint state = mapM_ printRow state --map for each row
   where
-    printRow row = putStrLn $ concatMap sprite row
-    sprite 0 = "."
-    sprite _ = "*"
+    printRow row = putStrLn $ concatMap sprite row --print the row
+    sprite 0 = "." -- = dead
+    sprite _ = "*" -- = live
 
 -- Count the number of live neighbors for a given cell
-countLiveNeighbors :: [[Int]] -> Int -> Int -> Int
-countLiveNeighbors state x y = sum [state !! nx !! ny | nx <- [x-1..x+1], ny <- [y-1..y+1], (nx, ny) /= (x, y), inBounds nx ny]
+countLiveNeighbors :: [[Int]] -> Int -> Int -> Int 
+countLiveNeighbors state x y = sum [state !! nx !! ny | nx <- [x-1..x+1], ny <- [y-1..y+1], (nx, ny) /= (x, y), inBounds nx ny] 
+-- sum[] sums the inner values up, state !! nx !! ny gives us current(x,y), while  nx <- [x-1..x+1], 
+--ny <- [y-1..y+1] retrieve all neighbours,(nx, ny) /= (x, y), inBounds nx ny makes sure the current pos is not counted aswell
   where
     rows = length state
     cols = length (head state)
@@ -36,12 +39,12 @@ countLiveNeighbors state x y = sum [state !! nx !! ny | nx <- [x-1..x+1], ny <- 
 
 -- Transition function
 transition :: [[Int]] -> [[Int]]
-transition state = [[updateCell x y | y <- [0..cols-1]] | x <- [0..rows-1]]
+transition state = [[updateCell x y | y <- [0..cols-1]] | x <- [0..rows-1]]  -- transition into new game state
   where
     rows = length state
     cols = length (head state)
-    updateCell x y
-      | state !! x !! y == 1 = if liveNeighbors < 2 || liveNeighbors > 3 then 0 else 1
+    updateCell x y -- Game conditions:
+      | state !! x !! y == 1 = if liveNeighbors < 2 || liveNeighbors > 3 then 0 else 1 
       | otherwise            = if liveNeighbors == 3 then 1 else 0
       where
         liveNeighbors = countLiveNeighbors state x y
