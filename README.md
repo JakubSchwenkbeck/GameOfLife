@@ -1,5 +1,8 @@
 # GameOfLife
 This is a small implementation of the famous 'Game of Life' by John Conway using the Haskell language.
+
+Feel free to use this code and experiment with rulesets and starting conditions as you wish:)
+
 Using pure function programming, this little function creates a GoL simulation in the command line:
 
 
