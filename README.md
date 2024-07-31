@@ -5,6 +5,4 @@ Feel free to use this code and experiment with rulesets and starting conditions 
 
 Using pure function programming, this little function creates a GoL simulation in the command line:
 
-
-![Eingabeaufforderung 2024-07-31 22-06-42 (online-video-cutter com)](https://github.com/user-attachments/assets/b38ef41a-5207-4780-b53f-03478bef1ca8)
-
+![GameOfLifeSim](https://github.com/user-attachments/assets/70747adb-2923-472a-8ad7-ee92170d374d)
