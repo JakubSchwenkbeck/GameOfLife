@@ -2,17 +2,24 @@ import Control.Concurrent
 import Text.Printf
 
 -- Define an initial state (e.g., a glider)
-initialState :: [[Integer]]
+initialState :: [[Int]]
 initialState =
     [ [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     , [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     , [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     , [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    -- Add more rows as needed
+    , [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    , [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    , [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    , [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    , [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    , [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    , [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
     ]
 
 -- Print the state
-prettyPrint :: [[Integer]] -> IO ()
+prettyPrint :: [[Int]] -> IO ()
 prettyPrint state = mapM_ printRow state
   where
     printRow row = putStrLn $ concatMap sprite row
@@ -20,7 +27,7 @@ prettyPrint state = mapM_ printRow state
     sprite _ = "*"
 
 -- Count the number of live neighbors for a given cell
-countLiveNeighbors :: [[Integer]] -> Int -> Int -> Integer
+countLiveNeighbors :: [[Int]] -> Int -> Int -> Int
 countLiveNeighbors state x y = sum [state !! nx !! ny | nx <- [x-1..x+1], ny <- [y-1..y+1], (nx, ny) /= (x, y), inBounds nx ny]
   where
     rows = length state
@@ -28,7 +35,7 @@ countLiveNeighbors state x y = sum [state !! nx !! ny | nx <- [x-1..x+1], ny <- 
     inBounds i j = i >= 0 && i < rows && j >= 0 && j < cols
 
 -- Transition function
-transition :: [[Integer]] -> [[Integer]]
+transition :: [[Int]] -> [[Int]]
 transition state = [[updateCell x y | y <- [0..cols-1]] | x <- [0..rows-1]]
   where
     rows = length state
@@ -43,16 +50,15 @@ transition state = [[updateCell x y | y <- [0..cols-1]] | x <- [0..rows-1]]
 main :: IO ()
 main = gameOfLife initialState 0
 
-gameOfLife :: [[Integer]] -> Int -> IO ()
+gameOfLife :: [[Int]] -> Int -> IO ()
 gameOfLife state iteration = do
     prettyPrint state
-    let new_state = transition state
+    let newState = transition state
     sleep
-   -- putStrLn  "---------" --
-    printf"\ESC[%dA" $ length state
+    printf "\ESC[%dA" $ length state
     if iteration < maxIterations
-        then gameOfLife new_state (iteration + 1)
+        then gameOfLife newState (iteration + 1)
         else putStrLn "Simulation finished."
   where
-    sleep = threadDelay 1000000  -- Adjust the delay as needed
+    sleep = threadDelay 100000  -- Adjust the delay as needed
     maxIterations = 100  -- Adjust the maximum number of iterations as needed
