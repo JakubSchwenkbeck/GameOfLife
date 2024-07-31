@@ -48,10 +48,11 @@ gameOfLife state iteration = do
     prettyPrint state
     let new_state = transition state
     sleep
-    putStrLn  "----------------" -- "\ESC[%dA" $ length state
+   -- putStrLn  "---------" --
+    printf"\ESC[%dA" $ length state
     if iteration < maxIterations
         then gameOfLife new_state (iteration + 1)
         else putStrLn "Simulation finished."
   where
-    sleep = threadDelay 100000  -- Adjust the delay as needed
+    sleep = threadDelay 1000000  -- Adjust the delay as needed
     maxIterations = 100  -- Adjust the maximum number of iterations as needed
