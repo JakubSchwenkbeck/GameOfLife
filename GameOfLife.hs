@@ -30,8 +30,11 @@ prettyPrint state = mapM_ printRow state --map for each row
 -- Count the number of live neighbors for a given cell
 countLiveNeighbors :: [[Int]] -> Int -> Int -> Int 
 countLiveNeighbors state x y = sum [state !! nx !! ny | nx <- [x-1..x+1], ny <- [y-1..y+1], (nx, ny) /= (x, y), inBounds nx ny] 
--- sum[] sums the inner values up, state !! nx !! ny gives us current(x,y), while  nx <- [x-1..x+1], 
---ny <- [y-1..y+1] retrieve all neighbours,(nx, ny) /= (x, y), inBounds nx ny makes sure the current pos is not counted aswell
+-- sum[]     - sums the inner values up,
+-- state !! nx !! ny      - gives us current(x,y),
+-- while  nx <- [x-1..x+1], ny <- [y-1..y+1]    - retrieves all neighbours,
+-- (nx, ny) /= (x, y), inBounds nx ny      - makes sure the current position is not counted aswell
+
   where
     rows = length state
     cols = length (head state)
